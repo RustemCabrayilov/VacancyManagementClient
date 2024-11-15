@@ -1,17 +1,29 @@
-import styles from './Vacancy.module.css'
 import  Card  from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-const Vacancy = ({Id,Name,Title,Description,StartDate,EndDate}) => {
+import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
+const Vacancy = ({Id,Title,Description,StartDate,EndDate}) => {
+  console.log(Title);
+  console.log(Description);
+  const formatDate = (date) => {
+    if (!date) return 'Not specified';
+    return format(new Date(date), 'MMMM dd, yyyy'); 
+  };
   return (
-    <Card style={{ width: '18rem' }}>
-    <Card.Img variant="top" src="holder.js/100px180" />
+    <Card style={{ width: '18rem', height:'300px' }}>
     <Card.Body>
-      <Card.Title>Card Title</Card.Title>
+      <Card.Title>{Title}</Card.Title>
       <Card.Text>
-        Some quick example text to build on the card title and make up the
-        bulk of the card's content.
+       {Description}
       </Card.Text>
-      <Button variant="primary">Go somewhere</Button>
+      <Card.Text>
+       {formatDate(StartDate)}
+      </Card.Text>
+      <Card.Text>
+       {formatDate(EndDate)}
+      </Card.Text>      
+      <Link to={`/interview/${Id}`} style={{ textDecoration: 'none' }}>
+  <button className='p-2 rounded bg-cyan-400 text-white'>Apply</button>
+</Link>
     </Card.Body>
   </Card>
   );

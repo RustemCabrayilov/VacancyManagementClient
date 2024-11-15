@@ -3,8 +3,13 @@ import VacancyList from "../VacancyList/VacancyList";
 
 const Home = ({vacancies}) => {
   return <>
-  <Header/>
-  <VacancyList vacancies={vacancies}></VacancyList>
+<div className="container-fluid">
+  <div className="container ">
+ <div className="row gap-3 p-3 min-h-screen">
+ <VacancyList vacancies={vacancies}/>
+ </div>
+  </div>
+</div>
   </>;
 };
 export default Home;
