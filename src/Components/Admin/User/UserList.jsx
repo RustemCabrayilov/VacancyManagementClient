@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
-import EditVacancy from "./Edit/EditVacancy";
-import DeleteVacancy from "./Delete/DeleteVacancy";
-import { useNavigate } from "react-router-dom";
+import ResultModal from "./ResultModal/ResultModal";
 
-export const VacancyList = () => {
+export const UserList = () => {
   const [vacancies, setVacancies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,8 +14,8 @@ export const VacancyList = () => {
 
   const fetchVacancies = async () => {
     try {
-      const response = await axios.get("https://localhost:44391/api/Vacancies");
-      setVacancies(response.data["getAllVacancies"] || []);
+      const response = await axios.get("https://localhost:44391/api/Users");
+      setVacancies(response.data["getAllUsers"] || []);      
     } catch (err) {
       setError(err.message);
     } finally {
@@ -56,51 +54,32 @@ export const VacancyList = () => {
     }
     fetchVacancies(); // Refetch vacancies after edit
   };
-  const navigate=useNavigate();
-const  handleAdd=()=>{
-navigate('/adminpanel/vacancies/add')
-}
   return (
     <div className="container-fluid">
       <div className="container">
-        <button className="d-flex justify-content-end mb-3 px-5 w-2 bg-cyan-300"
-        onClick={handleAdd}>Add</button>
         <Table striped bordered hover>
           <thead>
             <tr>
               <th>Id</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Start date</th>
-              <th>End Date</th>
-              <th>Active</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              <th>Email</th>
+              <th>NameSurname</th>
+              <th>UserName</th>
+              <th>Results</th>
             </tr>
           </thead>
           <tbody>
             {vacancies.map((vacancy) => (
               <tr key={vacancy.id}>
                 <td>{vacancy.id}</td>
-                <td>{vacancy.title}</td>
-                <td>{vacancy.description}</td>
-                <td>{vacancy.startDate}</td>
-                <td>{vacancy.endDate}</td>
-                <td>{vacancy.isActive ? "Yes" : "No"}</td>
+                <td>{vacancy.email}</td>
+                <td>{vacancy.nameSurname}</td>
+                <td>{vacancy.userName}</td>
                 <td className="d-flex justify-center items-center">
                   <button
                     onClick={() => handleEditVacancy(vacancy.id)}
                     className="bg-yellow-500 text-white rounded-lg w-full py-2"
                   >
-                    Edit
-                  </button>
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDeleteVacancy(vacancy.id)}
-                    className="bg-red-500 text-white rounded-lg w-full py-2"
-                  >
-                    Delete
+                    Results
                   </button>
                 </td>
               </tr>
@@ -108,18 +87,11 @@ navigate('/adminpanel/vacancies/add')
           </tbody>
         </Table>
         {wantEdit && (
-          <EditVacancy
+          <ResultModal
             editVacancyId={editVacancyId}
             onCancelEdit={handleCancel}
             onSaveEdit={handleSave}
             selectedVacancy={vacancies.find((p) => p.id === editVacancyId)}
-          />
-        )}
-        {wantDelete && (
-          <DeleteVacancy
-            deleteVacancyId={deleteVacancyId}
-            onCancelEdit={handleCancel}
-            onSaveEdit={handleSave}
           />
         )}
       </div>
@@ -127,4 +99,4 @@ navigate('/adminpanel/vacancies/add')
   );
 };
 
-export default VacancyList;
+export default UserList;

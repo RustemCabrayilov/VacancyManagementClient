@@ -26,7 +26,7 @@ export const AddAnswer = () => {
         formData
       );
       console.log("Data posted:", response.data);
-      navigate("/adminpanel/vacancies");
+      navigate("/adminpanel/answers");
     } catch (error) {
       console.error("Error posting data:", error);
       setError(error.message);

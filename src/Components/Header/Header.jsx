@@ -46,19 +46,46 @@ const Header = () => {
       {/* Custom Navigation */}
       <nav className={styles.nav}>
         <div className={styles.logo}>
-         <a href="/" className="no-underline"><h1>LOGO</h1></a>
+          <a href="/" className="no-underline">
+            <h1>LOGO</h1>
+          </a>
         </div>
 
         {/* Desktop Menu */}
         <ul className={`${styles.navList} ${menuActive ? styles.active : ""}`}>
-        <li><a href="/">Home</a></li>
-            <li><a href="/adminpanel/vacancies">Vacancies</a></li>
-            <li><a href="/adminpanel/questions">Questions</a></li>
-            <li><a href="/adminpanel/answers">Answers</a></li>
+          <li>
+            <a href="/home">Home</a>
+          </li>
+          {location.pathname === "/adminpanel" &&
+            location.pathname === "/admin" && (
+              <>
+                <li>
+                  <a href="/adminpanel/vacancies">Vacancies</a>
+                </li>
+                <li>
+                  <a href="/adminpanel/questions">Questions</a>
+                </li>
+                <li>
+                  <a href="/adminpanel/answers">Answers</a>
+                </li>
+                <li>
+                  <a href="/adminpanel/results">Results</a>
+                </li>
+              </>
+            )}
         </ul>
-
+        <div className="mr-2" onClick={handleUserProfile}>
+          <img
+            className="w-12 h-12"
+            src="https://t4.ftcdn.net/jpg/05/89/93/27/360_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.webp"
+          />
+        </div>
         {/* Mobile Hamburger Menu */}
-        <div className={`${styles.hamburger} ${menuActive ? styles.hamburgerActive : ""}`} onClick={toggleMenu}>
+        <div
+          className={`${styles.hamburger} ${
+            menuActive ? styles.hamburgerActive : ""
+          }`}
+          onClick={toggleMenu}>
           <span className={styles.line}></span>
           <span className={styles.line}></span>
           <span className={styles.line}></span>
@@ -69,11 +96,18 @@ const Header = () => {
       {menuActive && (
         <div className={`${styles.menubar} ${menuActive ? styles.active : ""}`}>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/adminpanel/vacancies">Vacancies</a></li>
-            <li><a href="/adminpanel/questions">Questions</a></li>
-            <li><a href="/adminpanel/answers">Answers</a></li>
-
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="/adminpanel/vacancies">Vacancies</a>
+            </li>
+            <li>
+              <a href="/adminpanel/questions">Questions</a>
+            </li>
+            <li>
+              <a href="/adminpanel/answers">Answers</a>
+            </li>
           </ul>
         </div>
       )}

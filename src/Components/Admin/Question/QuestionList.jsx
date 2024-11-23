@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
-import EditModal from "./Edit/EditModal";
 import { useNavigate } from "react-router-dom";
 
 const QuestionList = () => {
@@ -39,7 +38,7 @@ const QuestionList = () => {
   return (
     <>
       <div className="container-fluid">
-        <div className="container min-h-screen">
+        <div className="container">
         <button className="d-flex justify-content-end mb-3 px-5 w-2 bg-cyan-300"
         onClick={handleAdd}>Add</button>
           <Table striped bordered hover>

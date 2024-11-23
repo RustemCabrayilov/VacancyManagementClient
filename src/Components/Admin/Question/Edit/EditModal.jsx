@@ -49,7 +49,7 @@ const EditModal = ({ editProductId, setWantEdit, selectedProduct }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`https://localhost:44391/api/Vacancies/${editProductId}`, formData);
+      const response = await axios.put(`https://localhost:44391/api/Vacancies/${editProductId}`, formData);
       console.log('Data posted:', response.data);
       toast.success('Vacancy created successfully!');
       setWantEdit(false); // Close modal on success

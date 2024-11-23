@@ -15,8 +15,8 @@ const AnswerList = () => {
     try {
       const response = await axios.get("https://localhost:44391/api/Answers");
       console.log(response);
-      console.log(response.data["getAllVacancies"]);
-      setAnswers(response.data["getAllVacancies"] || []); 
+      console.log(response.data[""]);
+      setAnswers(response.data[""] || []); 
     } catch (err) {
       setError(err.message); 
     } finally {
@@ -42,7 +42,7 @@ const handleEdit=(id)=>{
   return (
     <>
      <div className="container-fluid">
-      <div className="container min-h-screen">
+      <div className="container">
       <button className="d-flex justify-content-end mb-3 px-5 w-2 bg-cyan-300"
         onClick={handleAdd}>Add</button>
         <Table striped bordered hover>

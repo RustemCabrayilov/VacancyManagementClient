@@ -5,7 +5,7 @@ const Home = ({vacancies}) => {
   return <>
 <div className="container-fluid">
   <div className="container ">
- <div className="row gap-3 p-3 min-h-screen">
+ <div className="row gap-5 p-3">
  <VacancyList vacancies={vacancies}/>
  </div>
   </div>
