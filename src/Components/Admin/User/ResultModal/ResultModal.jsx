@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const ResultModal = ({
-  editVacancyId,
-  onCancelEdit,
-  onSaveEdit,
-  selectedVacancy,
+  onCancel,
+  formId
 }) => {
   const [error, setError] = useState(null);
   const [results, setResults] = useState([]);
@@ -39,8 +37,11 @@ const ResultModal = ({
   useEffect(() => {
     fetchVacancies();
   }, []);
+  
+  console.log(formId);
 
-  const filteredResults = results.filter((x) => x.appUserId === editVacancyId);
+  const filteredResults = results.filter((x) => x.applicationFormId === formId);
+  console.log(filteredResults);
 
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
@@ -48,17 +49,32 @@ const ResultModal = ({
         <h2 className="mb-4 text-xl font-semibold text-gray-800">Results</h2>
 
         {filteredResults.length > 0 ? (
-          <div className="space-y-4">
+          // Scrollable container for results
+          <div className="max-h-96 overflow-y-auto space-y-4">
             {filteredResults.map((result) => {
               const vacancyTitle =
                 vacancies.find(
                   (vacancy) => vacancy.id === result.vacancyId
                 )?.title || "Unknown";
 
+              // Calculate percentage
+              const totalQuestions =
+                result.trueQuestionCount + result.falseAnswerCount;
+              const percentage = totalQuestions
+                ? (result.trueQuestionCount / totalQuestions) * 100
+                : 0;
+
+              // Determine color based on percentage
+              const getColor = () => {
+                if (percentage >= 75) return "bg-green-100 text-green-800";
+                if (percentage >= 50) return "bg-yellow-100 text-yellow-800";
+                return "bg-red-100 text-red-800";
+              };
+
               return (
                 <div
                   key={result.id}
-                  className="p-4 border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+                  className={`p-4 border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 ${getColor()}`}
                 >
                   <p className="text-sm text-gray-600">
                     <span className="font-bold text-gray-800">Vacancy:</span>{" "}
@@ -80,6 +96,10 @@ const ResultModal = ({
                     <span className="font-bold text-gray-800">Points:</span>{" "}
                     {result.point}
                   </p>
+                  <p className="text-sm font-semibold">
+                    <span className="font-bold text-gray-800">Percentage:</span>{" "}
+                    {percentage.toFixed(2)}%
+                  </p>
                 </div>
               );
             })}
@@ -90,7 +110,7 @@ const ResultModal = ({
 
         <div className="mt-6 flex justify-end gap-4">
           <button
-            onClick={onCancelEdit}
+            onClick={onCancel}
             className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors duration-200"
           >
             Cancel

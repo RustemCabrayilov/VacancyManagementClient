@@ -15,38 +15,13 @@ const Header = () => {
   const toggleMenu = () => {
     setMenuActive(!menuActive);
   };
+  const isAdminPath = location.pathname.startsWith("/admin") || location.pathname.startsWith("/adminpanel");
 
   return (
     <>
-      {/* Bootstrap Navbar Example (Commented Out) */}
-      {/* 
-      <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="/">Navbar</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            {location.pathname === "/adminpanel" && (
-              <>
-                <Nav.Link href="/adminpanel/vacancies">Vacancies</Nav.Link>
-                <Nav.Link href="/adminpanel/questions">Questions</Nav.Link>
-                <Nav.Link href="/adminpanel/answers">Answers</Nav.Link>
-              </>
-            )}
-          </Nav>
-        </Container>
-        <div className="mr-2" onClick={handleUserProfile}>
-          <img
-            className="w-12 h-12"
-            src="https://t4.ftcdn.net/jpg/05/89/93/27/360_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.webp"
-          />
-        </div>
-      </Navbar> 
-      */}
-
-      {/* Custom Navigation */}
       <nav className={styles.nav}>
         <div className={styles.logo}>
-          <a href="/" className="no-underline">
+          <a href="/home" className="no-underline">
             <h1>LOGO</h1>
           </a>
         </div>
@@ -56,8 +31,7 @@ const Header = () => {
           <li>
             <a href="/home">Home</a>
           </li>
-          {location.pathname === "/adminpanel" &&
-            location.pathname === "/admin" && (
+          {isAdminPath&& (
               <>
                 <li>
                   <a href="/adminpanel/vacancies">Vacancies</a>
@@ -70,6 +44,9 @@ const Header = () => {
                 </li>
                 <li>
                   <a href="/adminpanel/results">Results</a>
+                </li>
+                <li>
+                  <a href="/adminpanel/forms">Forms</a>
                 </li>
               </>
             )}

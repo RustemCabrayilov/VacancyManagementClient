@@ -103,59 +103,11 @@ const UserProfile = () => {
                 </div>
 
                 <hr />
-
-                {/* About Section */}
-
-                {/* Documents Section */}
-                {/* <div>
-                  <h5>Resume / Documents</h5>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() =>
-                      handleOpenModal({
-                        url: "https://localhost:44391/uploads/f4550d47-b57b-46ec-83aa-1ad640fad0fc.pdf",
-                        name: "Resume.pdf",
-                        type: "application/pdf",
-                      })
-                    }
-                  >
-                    <i className="fas fa-eye"></i> View Your CV
-                  </button>
-                </div> */}
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Modal */}
-      {/* {showModal && (
-        <div
-          className="modal fade show"
-          style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
-          tabIndex="-1"
-        >
-          <div className="modal-dialog modal-xl">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{modalTitle}</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={handleCloseModal}
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <div style={{ width: "100%", height: "80vh" }}>
-                  {modalContent}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };

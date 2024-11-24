@@ -24,7 +24,6 @@ const LogIn = () => {
   const handleLoginClick = async (e) => {
     e.preventDefault();
     setLoading(true);  // Set loading to true when making the request
-
     try {
       const response = await axios.post(
         "https://localhost:44391/api/Auth/Login",

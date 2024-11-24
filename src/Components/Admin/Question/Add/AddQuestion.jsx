@@ -77,7 +77,7 @@ export const AddQuestion = () => {
                 <option value="">Select a Vacancy</option>
               {vacancies.map((vacancy, index) => (
                 <option key={index} value={vacancy.id}>
-                  {vacancy.description}
+                  {vacancy.title}
                 </option>
               ))}
             </select>
