@@ -43,7 +43,6 @@ const ResultList = () => {
                 <td>{result.point}</td>
                 <td>{result.trueQuestionCount}</td>
                 <td>{result.falseAnswerCount}</td>
-                <td></td>
                 <td>{result.vacancyId}</td>
               </tr>
             ))}

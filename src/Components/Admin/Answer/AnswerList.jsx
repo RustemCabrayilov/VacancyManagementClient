@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import EditAnswerModal from "./Edit/EditAnswerModal";
 const AnswerList = () => {
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,91 +10,93 @@ const AnswerList = () => {
   const [wantEdit, setWantEdit] = useState(false);
   const [wantDelete, setWantDelete] = useState(false);
   const [editAnswerId, setEditAnswerId] = useState("");
-  const [deleteAnswerId, setDeleteAnswerId] = useState("");
   const fetchAnswers = async () => {
     try {
       const response = await axios.get("https://localhost:44391/api/Answers");
       console.log(response);
-      console.log(response.data[""]);
-      setAnswers(response.data[""] || []); 
+      console.log(response.data["getAllAnswer"]);
+      setAnswers(response.data["getAllAnswer"] || []);
     } catch (err) {
-      setError(err.message); 
+      setError(err.message);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchAnswers(); 
+    fetchAnswers();
   }, []);
-  const navigate=useNavigate()
-const handleAdd=()=>{
-  navigate('/adminpanel/answers/add')
-}
-const handleEdit=(id)=>{
-  setWantEdit(true)
-  setEditAnswerId(id);
-  }
-  const handleDelete=(id)=>{
-    setWantDelete(true)
-    setDeleteAnswerId(id);
+  const navigate = useNavigate();
+  const handleAdd = () => {
+    navigate("/adminpanel/answers/add");
+  };
+  const handleEdit = (id) => {
+    setWantEdit(true);
+    setEditAnswerId(id);
+  };
+  const handleCancel = () => {
+    if (wantEdit) {
+      setWantEdit(false);
+    } else if (wantDelete) {
+      setWantDelete(false);
     }
+  };
+
+  const handleSave = () => {
+    if (wantEdit) {
+      setWantEdit(false);
+    } else if (wantDelete) {
+      setWantDelete(false);
+    }
+    fetchAnswers();
+  };
   return (
     <>
-     <div className="container-fluid">
-      <div className="container">
-      <button className="d-flex justify-content-end mb-3 px-5 w-2 bg-cyan-300"
-        onClick={handleAdd}>Add</button>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Correct</th>
-            </tr>
-          </thead>
-          <tbody>
-            {answers.map((answer) => (
-              <tr key={answer.id}>
-                <td>{answer.name}</td>
-                <td>{answer.isCorrect}</td>
-                <td>
-                  <button
-                    onClick={() => handleEdit(answer.id)}
-                    className="bg-red-500 text-white rounded-lg w-full py-2"
-                  >
-                    Edit
-                  </button>
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDelete(answer.id)}
-                    className="bg-black text-white rounded-lg w-full py-2"
-                  >
-                    Delete
-                  </button>
-                </td>
+      <div className="container-fluid">
+        <div className="container">
+          <button
+            className="d-flex justify-content-end mb-3 px-5 w-2 bg-cyan-300"
+            onClick={handleAdd}>
+            Add
+          </button>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Correct</th>
+                <th>Question Id</th>
+                <th>Edit</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-        {/* {wantEdit && (
-          <EditVacancy
-            editVacancyId={editVacancyId}
-            onCancelEdit={handleCancel}
-            onSaveEdit={handleSave}
-            selectedVacancy={vacancies.find((p) => p.id === editVacancyId)}
-          />
-        )}
-        {wantDelete && (
-          <DeleteVacancy
-            deleteVacancyId={deleteVacancyId}
-            onCancelEdit={handleCancel}
-            onSaveEdit={handleSave}
-          />
-        )} */}
+            </thead>
+            <tbody>
+              {answers.map((answer) => (
+                <tr key={answer.id}>
+                  <td>{answer.id}</td>
+                  <td>{answer.name}</td>
+                  <td>{answer.isCorrect ? "Yes" : "No"}</td>
+                  <td>{answer.questionId}</td>
+                  <td>
+                    <button
+                      onClick={() => handleEdit(answer.id)}
+                      className="bg-yellow-500 text-white rounded-lg w-full px-3 py-2">
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          {wantEdit && (
+            <EditAnswerModal
+              editAnswerId={editAnswerId}
+              onCancelEdit={handleCancel}
+              onSaveEdit={handleSave}
+              selectedAnswer={answers.find((p) => p.id === editAnswerId)}
+            />
+          )}
+        </div>
       </div>
-    </div>
     </>
   );
 };

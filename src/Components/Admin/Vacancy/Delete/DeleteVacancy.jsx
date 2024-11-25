@@ -51,4 +51,3 @@ const DeleteVacancy = ({ deleteVacancyId, onCancelEdit, onSaveEdit }) => {
 
 export default DeleteVacancy;
 
-// VacancyList Component

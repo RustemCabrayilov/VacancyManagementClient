@@ -28,12 +28,13 @@ const EditVacancy = ({ editVacancyId, onCancelEdit, onSaveEdit, selectedVacancy 
   }, [selectedVacancy]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, type, value, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
